@@ -238,9 +238,17 @@ async def update_event(
 
     update_data = payload.model_dump(exclude_unset=True)
 
-    # Validate time range if both are provided
-    new_start = update_data.get("start_time", event.start_time)
-    new_end = update_data.get("end_time", event.end_time)
+    # Validate time range — normalise both sides to naive UTC for comparison
+    def _as_naive(dt):
+        if dt is None:
+            return dt
+        from datetime import timezone as _tz
+        if hasattr(dt, "tzinfo") and dt.tzinfo is not None:
+            return dt.astimezone(_tz.utc).replace(tzinfo=None)
+        return dt
+
+    new_start = _as_naive(update_data.get("start_time", event.start_time))
+    new_end = _as_naive(update_data.get("end_time", event.end_time))
     if new_end <= new_start:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
