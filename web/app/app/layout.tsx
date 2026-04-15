@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Calendar, CheckSquare, LogOut } from "lucide-react";
+import { Calendar, CheckSquare, FileText, LogOut } from "lucide-react";
 import { tokenStorage } from "@/lib/api";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { href: "/app/calendar", label: "Calendar", icon: Calendar },
   { href: "/app/tasks", label: "Tasks", icon: CheckSquare },
+  { href: "/app/pdf", label: "PDF Tools", icon: FileText },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {

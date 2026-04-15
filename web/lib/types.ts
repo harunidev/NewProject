@@ -48,6 +48,17 @@ export interface Task {
   updated_at: string;
 }
 
+export interface PdfDocument {
+  id: string;
+  user_id: string;
+  filename: string;
+  page_count: number;
+  file_size: number;
+  summary: string | null;
+  is_summarized: boolean;
+  uploaded_at: string;
+}
+
 export const PRIORITY_COLORS: Record<TaskPriority, string> = {
   low: "text-slate-500 bg-slate-100",
   medium: "text-amber-600 bg-amber-100",

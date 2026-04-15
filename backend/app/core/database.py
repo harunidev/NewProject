@@ -35,6 +35,6 @@ async def get_db() -> AsyncSession:
 async def init_db() -> None:
     """Create all tables on startup."""
     # Import models so they register with Base metadata
-    from app.models import user, calendar, task  # noqa: F401
+    from app.models import user, calendar, task, pdf  # noqa: F401
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
